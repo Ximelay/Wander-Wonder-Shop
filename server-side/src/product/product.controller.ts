@@ -20,6 +20,11 @@ import { ProductService } from './product.service'; // Импортируем Pr
 export class ProductController {
     constructor(private readonly productService: ProductService) {} // Инъекция ProductService
 
+	@Get('by-category/:categoryId') // Указываем путь для получения продуктов по ID категории
+	async getbyCategory(@Param('categoryId') categoryId: string) {
+		return this.productService.getByCategory(categoryId); // Вызов метода сервиса
+	}
+
     @Get() // Указываем путь для получения всех продуктов
     async getAll(@Query('searchTerm') searchTerm?: string) {
         return this.productService.getAll(searchTerm); // Вызов метода сервиса
@@ -36,10 +41,7 @@ export class ProductController {
         return this.productService.getById(id); // Вызов метода сервиса
     }
 
-    @Get('by-category/:categoryId') // Указываем путь для получения продуктов по ID категории
-    async getbyCategory(@Param('categoryId') categoryId: string) {
-        return this.productService.getByCategory(categoryId); // Вызов метода сервиса
-    }
+
 
     @Get('most-popular') // Указываем путь для получения самых популярных продуктов
     async getMostPopular() {
